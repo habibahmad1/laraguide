@@ -1,0 +1,14 @@
+cara upload ke git
+1. git init
+2. git add .
+3. git commit -m 'portofolio'
+4. git branch -M main (ini buat branch dengan nama main,step ini dilewat
+   tidak apa apa tapi default branch master)
+5. git remote (urlnya)
+6. git push -u origin main (main mengikuti nama branch kalau default master)
+
+cara update
+1. ubah file nanti akan terdeteksi dengan keti git status 
+2. git add nama/file/diubah.js (gunakan . kalau semua file)
+2. git commit -m 'Deskripsi'
+3. git push origin main
