@@ -1,6 +1,6 @@
 # Laravel Guide
 
-Laravel Steps
+## Laravel Steps
 1. Model: Pertama-tama, Anda akan membuat atau menggunakan model Eloquent untuk merepresentasikan tabel atau entitas dalam database Anda. Model ini akan berfungsi untuk berinteraksi dengan data dalam tabel tersebut. Jika Anda belum memiliki model yang sesuai, Anda dapat membuatnya dengan perintah artisan make:model.
 2. Migrasi: Setelah model dibuat, Anda mungkin perlu membuat atau menyesuaikan migrasi untuk tabel yang terkait. Migrasi Laravel digunakan untuk mendefinisikan struktur database, seperti membuat tabel baru atau menambahkan kolom ke tabel yang sudah ada. Anda dapat menggunakan perintah artisan make:migration untuk membuat migrasi baru.
 3. Factory: Jika Anda ingin mengisi tabel dengan data sampel untuk pengembangan atau pengujian, Anda dapat membuat factory untuk model Anda. Factory digunakan untuk menghasilkan data palsu yang dapat Anda gunakan untuk mengisi tabel dengan data sampel. Anda dapat menggunakan perintah artisan make:factory untuk membuat factory baru.
@@ -8,7 +8,7 @@ Laravel Steps
 5. View: Terakhir, Anda akan membuat tampilan (view) yang akan menampilkan data yang diambil dari database. Tampilan ini akan mengambil data yang dikirimkan oleh controller dan menampilkannya sesuai dengan kebutuhan Anda. Anda dapat membuat tampilan dengan menggunakan Blade, template engine bawaan Laravel, yang memudahkan Anda untuk memasukkan data dinamis ke dalam tampilan.
 Setelah langkah-langkah di atas selesai, Anda kemungkinan akan mengatur rute (route) di Laravel untuk mengarahkan permintaan HTTP yang masuk ke halaman yang tepat pada controller Anda. Dengan begitu, ketika pengguna mengakses URL tertentu, controller akan menyiapkan data yang diperlukan dan mengarahkan ke tampilan yang sesuai untuk ditampilkan kepada pengguna.
 
-Relationship Table
+## Relationship Table
 
 Jika Anda ingin menambahkan relasi antara dua tabel di Laravel, Anda perlu melakukan beberapa langkah:
 
