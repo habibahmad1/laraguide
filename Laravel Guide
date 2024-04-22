@@ -13,8 +13,7 @@ Setelah langkah-langkah di atas selesai, Anda kemungkinan akan mengatur rute (ro
 Jika Anda ingin menambahkan relasi antara dua tabel di Laravel, Anda perlu melakukan beberapa langkah:
 
 Tambahkan Foreign Key pada Migrasi: Pertama, Anda perlu menambahkan foreign key pada migrasi tabel yang ingin Anda relasikan. Misalnya, jika Anda ingin menambahkan relasi antara tabel artikel dan tabel galeri, Anda harus menambahkan kolom galeri_id pada tabel artikel.Contoh migrasi untuk menambahkan kolom galeri_id pada tabel artikel:
-php
-Copy code
+
 Schema::table('artikel', function (Blueprint $table) {
     $table->unsignedBigInteger('galeri_id')->nullable();
     $table->foreign('galeri_id')->references('id')->on('galeri');
@@ -45,14 +44,14 @@ Dengan menambahkan relasi ini, Anda dapat dengan mudah mengakses data terkait da
 
 Rangkuman alur pembuatan dan penanganan permintaan untuk menampilkan detail setiap galeri yang dipilih:
 
-Membuat View Detail Galeri:
+1. Membuat View Detail Galeri:
 Buat sebuah file blade untuk menampilkan detail galeri, misalnya detailGaleri.blade.php.
 Desain tampilan sesuai kebutuhan, termasuk bagaimana judul, deskripsi, dan gambar galeri ditampilkan.
-Menambahkan Rute untuk Detail Galeri:
+2. Menambahkan Rute untuk Detail Galeri:
 Tambahkan rute baru ke dalam file web.php untuk menangani permintaan detail galeri.
 Contoh: Route::get('/detail/{galeri}', [GaleriController::class, 'detail']);
 Pastikan placeholder dalam rute ({galeri}) sesuai dengan parameter dalam metode controller.
-Menambahkan Metode Controller untuk Detail Galeri:
+3. Menambahkan Metode Controller untuk Detail Galeri:
 Tambahkan metode baru ke dalam controller yang akan menangani permintaan detail galeri.
 Dalam metode ini, gunakan model binding untuk mendapatkan instance galeri berdasarkan ID yang diberikan.
 Kirimkan instance galeri ke tampilan detail galeri.
@@ -66,7 +65,7 @@ public function detail(Galeri $galeri)
     ]);
 }
 
-Menampilkan Detail Galeri dalam View:
+4. Menampilkan Detail Galeri dalam View:
 Dalam view detailGaleri.blade.php, gunakan data galeri yang diterima dari controller untuk menampilkan judul, deskripsi, dan gambar galeri.
 
 <h1>{{ $galeri->judul }}</h1>
