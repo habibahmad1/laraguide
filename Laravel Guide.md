@@ -17,10 +17,10 @@ Tambahkan Foreign Key pada Migrasi: Pertama, Anda perlu menambahkan foreign key 
 Schema::table('artikel', function (Blueprint $table) {
     $table->unsignedBigInteger('galeri_id')->nullable();
     $table->foreign('galeri_id')->references('id')->on('galeri');
-});
+}); ```php
 Dalam contoh ini, galeri_id adalah foreign key yang akan merujuk ke kolom id pada tabel galeri.
 Definisikan Relasi di Model: Setelah menambahkan foreign key dalam migrasi, Anda perlu mendefinisikan relasi antara model-model terkait. Dalam kasus ini, Anda akan mendefinisikan relasi antara model Artikel dan model Galeri.Contoh definisi relasi di model Artikel:
-```
+```php
 class Artikel extends Model
 {
     public function galeri()
