@@ -13,14 +13,14 @@ Setelah langkah-langkah di atas selesai, Anda kemungkinan akan mengatur rute (ro
 Jika Anda ingin menambahkan relasi antara dua tabel di Laravel, Anda perlu melakukan beberapa langkah:
 
 Tambahkan Foreign Key pada Migrasi: Pertama, Anda perlu menambahkan foreign key pada migrasi tabel yang ingin Anda relasikan. Misalnya, jika Anda ingin menambahkan relasi antara tabel artikel dan tabel galeri, Anda harus menambahkan kolom galeri_id pada tabel artikel.Contoh migrasi untuk menambahkan kolom galeri_id pada tabel artikel:
-
+```
 Schema::table('artikel', function (Blueprint $table) {
     $table->unsignedBigInteger('galeri_id')->nullable();
     $table->foreign('galeri_id')->references('id')->on('galeri');
-});
+}); ```
 Dalam contoh ini, galeri_id adalah foreign key yang akan merujuk ke kolom id pada tabel galeri.
 Definisikan Relasi di Model: Setelah menambahkan foreign key dalam migrasi, Anda perlu mendefinisikan relasi antara model-model terkait. Dalam kasus ini, Anda akan mendefinisikan relasi antara model Artikel dan model Galeri.Contoh definisi relasi di model Artikel:
-
+```
 class Artikel extends Model
 {
     public function galeri()
@@ -36,7 +36,7 @@ class Galeri extends Model
     {
         return $this->hasMany(Artikel::class);
     }
-}
+} ```
 Dalam contoh ini, kita mendefinisikan relasi belongsTo pada model Artikel yang menunjukkan bahwa setiap artikel dimiliki oleh satu galeri. Sedangkan pada model Galeri, kita mendefinisikan relasi hasMany yang menunjukkan bahwa satu galeri dapat memiliki banyak artikel.
 Dengan menambahkan relasi ini, Anda dapat dengan mudah mengakses data terkait dari kedua model. Misalnya, Anda dapat mengambil galeri yang terkait dengan sebuah artikel dengan menggunakan $artikel->galeri, atau mengambil semua artikel yang terkait dengan sebuah galeri dengan menggunakan $galeri->artikel.
 
@@ -56,14 +56,14 @@ Tambahkan metode baru ke dalam controller yang akan menangani permintaan detail 
 Dalam metode ini, gunakan model binding untuk mendapatkan instance galeri berdasarkan ID yang diberikan.
 Kirimkan instance galeri ke tampilan detail galeri.
 Contoh:
-
+```
 public function detail(Galeri $galeri)
 {
     return view('detailGaleri', [
         'title' => 'Detail Galeri',
         'galeri' => $galeri
     ]);
-}
+} ```
 
 4. Menampilkan Detail Galeri dalam View:
 Dalam view detailGaleri.blade.php, gunakan data galeri yang diterima dari controller untuk menampilkan judul, deskripsi, dan gambar galeri.
