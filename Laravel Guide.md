@@ -17,7 +17,8 @@ Tambahkan Foreign Key pada Migrasi: Pertama, Anda perlu menambahkan foreign key 
 Schema::table('artikel', function (Blueprint $table) {
     $table->unsignedBigInteger('galeri_id')->nullable();
     $table->foreign('galeri_id')->references('id')->on('galeri');
-}); ```php
+});
+```
 Dalam contoh ini, galeri_id adalah foreign key yang akan merujuk ke kolom id pada tabel galeri.
 Definisikan Relasi di Model: Setelah menambahkan foreign key dalam migrasi, Anda perlu mendefinisikan relasi antara model-model terkait. Dalam kasus ini, Anda akan mendefinisikan relasi antara model Artikel dan model Galeri.Contoh definisi relasi di model Artikel:
 ```php
@@ -27,16 +28,18 @@ class Artikel extends Model
     {
         return $this->belongsTo(Galeri::class);
     }
-}```
-Contoh definisi relasi di model Galeri:
+}
 ```
+Contoh definisi relasi di model Galeri:
+```php
 class Galeri extends Model
 {
     public function artikel()
     {
         return $this->hasMany(Artikel::class);
     }
-} ```
+}
+```
 Dalam contoh ini, kita mendefinisikan relasi belongsTo pada model Artikel yang menunjukkan bahwa setiap artikel dimiliki oleh satu galeri. Sedangkan pada model Galeri, kita mendefinisikan relasi hasMany yang menunjukkan bahwa satu galeri dapat memiliki banyak artikel.
 Dengan menambahkan relasi ini, Anda dapat dengan mudah mengakses data terkait dari kedua model. Misalnya, Anda dapat mengambil galeri yang terkait dengan sebuah artikel dengan menggunakan $artikel->galeri, atau mengambil semua artikel yang terkait dengan sebuah galeri dengan menggunakan $galeri->artikel.
 
@@ -56,18 +59,19 @@ Tambahkan metode baru ke dalam controller yang akan menangani permintaan detail 
 Dalam metode ini, gunakan model binding untuk mendapatkan instance galeri berdasarkan ID yang diberikan.
 Kirimkan instance galeri ke tampilan detail galeri.
 Contoh:
-```
+```php
 public function detail(Galeri $galeri)
 {
     return view('detailGaleri', [
         'title' => 'Detail Galeri',
         'galeri' => $galeri
     ]);
-} ```
+}
+```
 
 4. Menampilkan Detail Galeri dalam View:
 Dalam view detailGaleri.blade.php, gunakan data galeri yang diterima dari controller untuk menampilkan judul, deskripsi, dan gambar galeri.
-```
+```html
 <h1>{{ $galeri->judul }}</h1>
 <p>{{ $galeri->deskripsi }}</p>
 <img src="{{ $galeri->gambar }}" alt="Gambar Galeri">
