@@ -67,9 +67,9 @@ public function detail(Galeri $galeri)
 
 4. Menampilkan Detail Galeri dalam View:
 Dalam view detailGaleri.blade.php, gunakan data galeri yang diterima dari controller untuk menampilkan judul, deskripsi, dan gambar galeri.
-
+```
 <h1>{{ $galeri->judul }}</h1>
 <p>{{ $galeri->deskripsi }}</p>
 <img src="{{ $galeri->gambar }}" alt="Gambar Galeri">
-
+```
 Dengan langkah-langkah ini, Anda akan memiliki halaman detail galeri yang berfungsi dengan baik di aplikasi Laravel Anda. Pastikan untuk memeriksa setiap langkah dengan hati-hati dan menyesuaikannya dengan kebutuhan aplikasi Anda.
