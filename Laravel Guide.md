@@ -48,7 +48,7 @@ Dengan menambahkan relasi ini, Anda dapat dengan mudah mengakses data terkait da
 Rangkuman alur pembuatan dan penanganan permintaan untuk menampilkan detail setiap galeri yang dipilih:
 
 1. Membuat View Detail Galeri:
-Buat sebuah file blade untuk menampilkan detail galeri, misalnya detailGaleri.blade.php.
+Buat sebuah file blade untuk menampilkan detail galeri, misalnya *detailGaleri.blade.php*.
 Desain tampilan sesuai kebutuhan, termasuk bagaimana judul, deskripsi, dan gambar galeri ditampilkan.
 2. Menambahkan Rute untuk Detail Galeri:
 Tambahkan rute baru ke dalam file web.php untuk menangani permintaan detail galeri.
