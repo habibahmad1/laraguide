@@ -13,11 +13,11 @@ Setelah langkah-langkah di atas selesai, Anda kemungkinan akan mengatur rute (ro
 Jika Anda ingin menambahkan relasi antara dua tabel di Laravel, Anda perlu melakukan beberapa langkah:
 
 Tambahkan Foreign Key pada Migrasi: Pertama, Anda perlu menambahkan foreign key pada migrasi tabel yang ingin Anda relasikan. Misalnya, jika Anda ingin menambahkan relasi antara tabel artikel dan tabel galeri, Anda harus menambahkan kolom galeri_id pada tabel artikel.Contoh migrasi untuk menambahkan kolom galeri_id pada tabel artikel:
-```
+```php
 Schema::table('artikel', function (Blueprint $table) {
     $table->unsignedBigInteger('galeri_id')->nullable();
     $table->foreign('galeri_id')->references('id')->on('galeri');
-}); ```
+});
 Dalam contoh ini, galeri_id adalah foreign key yang akan merujuk ke kolom id pada tabel galeri.
 Definisikan Relasi di Model: Setelah menambahkan foreign key dalam migrasi, Anda perlu mendefinisikan relasi antara model-model terkait. Dalam kasus ini, Anda akan mendefinisikan relasi antara model Artikel dan model Galeri.Contoh definisi relasi di model Artikel:
 ```
