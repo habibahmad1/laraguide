@@ -27,9 +27,9 @@ class Artikel extends Model
     {
         return $this->belongsTo(Galeri::class);
     }
-}
+}```
 Contoh definisi relasi di model Galeri:
-
+```
 class Galeri extends Model
 {
     public function artikel()
@@ -49,7 +49,7 @@ Buat sebuah file blade untuk menampilkan detail galeri, misalnya detailGaleri.bl
 Desain tampilan sesuai kebutuhan, termasuk bagaimana judul, deskripsi, dan gambar galeri ditampilkan.
 2. Menambahkan Rute untuk Detail Galeri:
 Tambahkan rute baru ke dalam file web.php untuk menangani permintaan detail galeri.
-Contoh: Route::get('/detail/{galeri}', [GaleriController::class, 'detail']);
+``` Contoh: Route::get('/detail/{galeri}', [GaleriController::class, 'detail']); ```
 Pastikan placeholder dalam rute ({galeri}) sesuai dengan parameter dalam metode controller.
 3. Menambahkan Metode Controller untuk Detail Galeri:
 Tambahkan metode baru ke dalam controller yang akan menangani permintaan detail galeri.
