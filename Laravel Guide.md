@@ -119,3 +119,29 @@ Dalam view detailGaleri.blade.php, gunakan data galeri yang diterima dari contro
 <img src="{{ $galeri->gambar }}" alt="Gambar Galeri">
 ```
 Dengan langkah-langkah ini, Anda akan memiliki halaman detail galeri yang berfungsi dengan baik di aplikasi Laravel Anda. Pastikan untuk memeriksa setiap langkah dengan hati-hati dan menyesuaikannya dengan kebutuhan aplikasi Anda.
+
+### Melihat Setiap User upload galeri apa saja
+1. Buat Sebuah link untuk user ketika di klik, bisa melihat postingan apa saja yang diupload oleh user itu.
+   ```html
+   <a href="/uploaded/{{ $item->user->username }}" class="uploadBy">Upload By : {{ $item->user->name }}</a>
+   ```
+2. Buat URL di route web.php untuk bisa di akses url nya.
+   ```php
+   Route::get('/uploaded/{uploaded:username}', [UserController::class, "index2"]);
+   ```
+3. Buka UserController dan buat function baru untuk route nya.
+   ```php
+    public function index2(User $uploaded)
+    {
+        $galeri = Galeri::with(['kategoriGaleri', 'user'])
+            ->where('user_id', $uploaded->id)
+            ->get();
+
+        return view('galeri', [
+            'title' => "Galeri",
+            'galeri' => $galeri,
+        ]);
+    }
+   ```
+   Pastikan menggunakan model Galeri:: dan dengan relasi apa saja yang sudah terhubung di model galeri, disini menggunakan kategoriGaleri dan user karena untuk menampilkan data nya butuh itu agar bisa diakses.
+
