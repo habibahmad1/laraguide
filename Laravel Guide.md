@@ -57,14 +57,14 @@ php artisan migrate
 Sekarang, Anda dapat menggunakan relasi yang telah Anda definisikan dalam kode Anda. Misalnya, Anda dapat mengakses informasi tentang pengguna yang memiliki galeri tertentu atau galeri yang dimiliki oleh sebuah kategori.
 ```php
 // Contoh penggunaan relasi
-$galeri = Galeri::find(1);
+$galeri = Galeri::get();
 $user = $galeri->user; // Mendapatkan informasi pengguna yang memiliki galeri ini
 $kategori = $galeri->kategori; // Mendapatkan informasi kategori dari galeri ini
 
-$user = User::find(1);
+$user = User::get();
 $galeris = $user->galeris; // Mendapatkan galeri yang dimiliki oleh pengguna ini
 
-$kategori = Kategori::find(1);
+$kategori = Kategori::get();
 $galeris = $kategori->galeris; // Mendapatkan galeri yang dimiliki oleh kategori ini
 ```
 Dengan langkah-langkah di atas, Anda telah membuat relasi yang jelas antara tabel "Galeri", "User", dan "Kategori" dalam aplikasi Laravel Anda.
