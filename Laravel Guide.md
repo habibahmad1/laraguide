@@ -10,40 +10,76 @@ Setelah langkah-langkah di atas selesai, Anda kemungkinan akan mengatur rute (ro
 
 ### Relationship Table
 
-Jika Anda ingin menambahkan relasi antara dua tabel di Laravel, Anda perlu melakukan beberapa langkah:
+Galeri memiliki relasi pada model "User" dan "Kategori" juga. Berikut adalah langkah-langkahnya:
 
-Tambahkan Foreign Key pada Migrasi: Pertama, Anda perlu menambahkan foreign key pada migrasi tabel yang ingin Anda relasikan. Misalnya, jika Anda ingin menambahkan relasi antara tabel artikel dan tabel galeri, Anda harus menambahkan kolom galeri_id pada tabel artikel.
-
-Contoh migrasi untuk menambahkan kolom galeri_id pada tabel artikel:
+1. Definisikan Struktur Database:
+Pastikan tabel "Galeri" memiliki kolom user_id dan kategori_id yang merupakan kunci asing yang merujuk ke tabel "User" dan "Kategori" masing-masing.
+2. Buat Model:
+Buat model untuk setiap tabel yang terlibat, yaitu "Galeri", "User", dan "Kategori", jika Anda belum memiliki modelnya. Anda dapat menggunakan perintah artisan untuk membuatnya:
 ```php
-Schema::table('artikel', function (Blueprint $table) {
-    $table->unsignedBigInteger('galeri_id')->nullable();
-    $table->foreign('galeri_id')->references('id')->on('galeri');
-});
+php artisan make:model Galeri
+php artisan make:model User
+php artisan make:model Kategori
 ```
-Dalam contoh ini, galeri_id adalah foreign key yang akan merujuk ke kolom id pada tabel galeri.
-Definisikan Relasi di Model: Setelah menambahkan foreign key dalam migrasi, Anda perlu mendefinisikan relasi antara model-model terkait. Dalam kasus ini, Anda akan mendefinisikan relasi antara model Artikel dan model Galeri.Contoh definisi relasi di model Artikel:
+3. Definisikan Relasi dalam Model:
+Di dalam masing-masing model ("Galeri", "User", dan "Kategori"), tambahkan metode untuk mendefinisikan relasi dengan model lain yang sesuai.
 ```php
-class Artikel extends Model
-{
-    public function galeri()
-    {
-        return $this->belongsTo(Galeri::class);
+// Di dalam model Galeri
+class Galeri extends Model {
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function kategori() {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+}
+
+// Di dalam model User
+class User extends Model {
+    public function galeris() {
+        return $this->hasMany(Galeri::class);
+    }
+}
+
+// Di dalam model Kategori
+class Kategori extends Model {
+    public function galeris() {
+        return $this->hasMany(Galeri::class);
     }
 }
 ```
-Contoh definisi relasi di model Galeri:
+4. Migrate Tabel:
+Jalankan migrasi untuk memastikan struktur tabel sudah sesuai dengan definisi model dan relasi yang telah Anda buat.
+Copy code
+php artisan migrate
+5. Gunakan Relasi:
+Sekarang, Anda dapat menggunakan relasi yang telah Anda definisikan dalam kode Anda. Misalnya, Anda dapat mengakses informasi tentang pengguna yang memiliki galeri tertentu atau galeri yang dimiliki oleh sebuah kategori.
 ```php
-class Galeri extends Model
-{
-    public function artikel()
-    {
-        return $this->hasMany(Artikel::class);
-    }
-}
+// Contoh penggunaan relasi
+$galeri = Galeri::find(1);
+$user = $galeri->user; // Mendapatkan informasi pengguna yang memiliki galeri ini
+$kategori = $galeri->kategori; // Mendapatkan informasi kategori dari galeri ini
+
+$user = User::find(1);
+$galeris = $user->galeris; // Mendapatkan galeri yang dimiliki oleh pengguna ini
+
+$kategori = Kategori::find(1);
+$galeris = $kategori->galeris; // Mendapatkan galeri yang dimiliki oleh kategori ini
 ```
-Dalam contoh ini, kita mendefinisikan relasi belongsTo pada model Artikel yang menunjukkan bahwa setiap artikel dimiliki oleh satu galeri. Sedangkan pada model Galeri, kita mendefinisikan relasi hasMany yang menunjukkan bahwa satu galeri dapat memiliki banyak artikel.
-Dengan menambahkan relasi ini, Anda dapat dengan mudah mengakses data terkait dari kedua model. Misalnya, Anda dapat mengambil galeri yang terkait dengan sebuah artikel dengan menggunakan $artikel->galeri, atau mengambil semua artikel yang terkait dengan sebuah galeri dengan menggunakan $galeri->artikel.
+Dengan langkah-langkah di atas, Anda telah membuat relasi yang jelas antara tabel "Galeri", "User", dan "Kategori" dalam aplikasi Laravel Anda.
+
+### belongsTo & hasMany
+1. belongsTo:
+belongsTo digunakan untuk mendefinisikan relasi "mengarah ke" antara dua model, di mana model yang memanggil metode belongsTo merupakan model yang memiliki kunci asing yang merujuk ke model lain.
+Dalam contoh ini, pada model "Galeri", kita mendefinisikan dua relasi belongsTo:
+user(): Menunjukkan bahwa setiap entitas "Galeri" dimiliki oleh satu entitas "User". Artinya, setiap galeri memiliki satu pengguna yang terkait dengannya.
+kategori(): Menunjukkan bahwa setiap entitas "Galeri" dimiliki oleh satu entitas "Kategori". Artinya, setiap galeri memiliki satu kategori yang terkait dengannya.
+2. hasMany:
+hasMany digunakan untuk mendefinisikan relasi "miliki banyak" antara dua model, di mana model yang memanggil metode hasMany memiliki banyak entitas yang terkait dengan model lain.
+Dalam contoh ini, pada model "User" dan "Kategori", kita mendefinisikan relasi hasMany:
+Pada model "User", kita memiliki relasi galeris(), yang menunjukkan bahwa setiap entitas "User" dapat memiliki banyak entitas "Galeri". Artinya, seorang pengguna dapat memiliki banyak galeri.
+Pada model "Kategori", kita juga memiliki relasi galeris(), yang menunjukkan bahwa setiap entitas "Kategori" dapat memiliki banyak entitas "Galeri". Artinya, sebuah kategori dapat memiliki banyak galeri.
 
 ### Membuka setiap postingan yang sesuai isi nya
 
