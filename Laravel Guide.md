@@ -152,18 +152,18 @@ Dengan langkah-langkah ini, Anda akan memiliki halaman detail galeri yang berfun
       ```
    2. Tentukan URL nya di Route pada web.php dan jalur menggunakan Controller nya dengan function allKategori.
       ```php
-      Route::get('/kategoriGaleri', [KategoriGaleriController::class, 'allKategori']);Route::get('/kategoriGaleri', [KategoriGaleriController::class, 'allKategori']);
+      Route::get('/kategoriGaleri', [KategoriGaleriController::class, 'allKategori']);Route::get('/kategoriGaleri', [KategoriGaleriController::class, '                  allKategori']);
       ```
    3. Masuk Ke KategoriGaleriController dan arahkan akan ditampilkan ke view mana, berikan title, dan ambil data dengan menggunakan model KategoriGaleri.
       ```php
       public function allKategori()
-    {
+        {
         return view('kategoriGaleri',  [
             'title' => 'Galeri',
             'judulPage' => 'Kategori Galeri',
             'kategoriGaleri' => KategoriGaleri::all()
 
         ]);
-    }
-   ``` 
+        }
+       ``` 
 
