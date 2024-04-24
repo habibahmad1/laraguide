@@ -145,6 +145,28 @@ Dengan langkah-langkah ini, Anda akan memiliki halaman detail galeri yang berfun
    ```
    Pastikan menggunakan model Galeri:: dan dengan relasi apa saja yang sudah terhubung di model galeri, disini menggunakan kategoriGaleri dan user karena untuk menampilkan data nya butuh itu agar bisa diakses.
 
+1. Parameter pada Fungsi Controller:
+```php
+public function index2(User $uploaded)
+```
+Parameter User $uploaded di sini adalah fitur yang disebut "Implicit Binding" dalam Laravel. Ini berarti bahwa Laravel akan mencoba untuk secara otomatis mencari model User yang sesuai berdasarkan nilai dari parameter yang diberikan di URL. Misalnya, jika URL adalah /uploaded/username, maka Laravel akan mencari model User yang memiliki username yang sesuai dengan nilai username dalam URL. Jika ditemukan, objek User tersebut akan disertakan sebagai parameter $uploaded dalam fungsi.
+2. Membuat Query dengan Eloquent:
+```php
+$galeri = Galeri::with(['kategoriGaleri', 'user'])
+    ->where('user_id', $uploaded->id)
+    ->get();
+```
+Di sini, Anda menggunakan Eloquent untuk membuat query ke tabel Galeri. Metode with() digunakan untuk memuat relasi yang terhubung dengan model Galeri, dalam hal ini kategoriGaleri dan user. Kemudian, Anda menambahkan kondisi where untuk memfilter entri galeri berdasarkan user_id yang diterima dari parameter $uploaded. Dengan kata lain, ini akan mengambil semua entri galeri yang diunggah oleh pengguna yang disediakan sebagai parameter.
+3. Mengembalikan Data ke View:
+php
+```php
+return view('galeri', [
+    'title' => "Galeri",
+    'galeri' => $galeri,
+]);
+```
+Di sini, Anda mengembalikan data ke view dengan menggunakan view() helper Laravel. Anda menyediakan judul halaman (title) dan data galeri yang telah diambil dari database. Data ini kemudian dapat digunakan dalam tampilan (view) untuk ditampilkan kepada pengguna.
+
    ### Menampilkan seluruh Kategori pada Galeri
    1. Buat link yang akan di klik.
       ```html
