@@ -81,6 +81,37 @@ Dalam contoh ini, pada model "User" dan "Kategori", kita mendefinisikan relasi h
 Pada model "User", kita memiliki relasi galeris(), yang menunjukkan bahwa setiap entitas "User" dapat memiliki banyak entitas "Galeri". Artinya, seorang pengguna dapat memiliki banyak galeri.
 Pada model "Kategori", kita juga memiliki relasi galeris(), yang menunjukkan bahwa setiap entitas "Kategori" dapat memiliki banyak entitas "Galeri". Artinya, sebuah kategori dapat memiliki banyak galeri.
 
+### Menampilkan Data Galeri
+1. Buat File view dengan menggunakan metode Partial Nvbar dan Main Bar dipisah, jadi tiap view sekarang hanya menghubungkan dan isi nya saja.
+   ```html
+    @extends('./layouts/main')
+    @section('content')
+    <h1 class="text-center">{{ $judulPage }}</h1>
+    <center>
+        <div class="category"><a href="/kategoriGaleri">All Category</a></div>
+    </center>
+        <div class="container-galeri">
+            
+            @foreach ($galeri as $item)
+            <div class="boxImg">
+                <img src="https://source.unsplash.com/500x400?{{ $item->kategoriGaleri->nama }}" alt="" class="img-fluid" >
+                
+                <div class="galeriKategori"><a href="/kategoriGaleri/{{ $item->kategoriGaleri->slug }}" class="text-decoration-none text-white">{{ $item->kategoriGaleri->nama }}</a></div>
+    
+                <div class="judulGaleri">
+                    <a href="/detail/{{ $item->id }}" class="text-decoration-none text-white"><h5 class="mx-3 mt-2">{{ $item->judul }}</h5></a>
+    
+                    <a href="/uploaded/{{ $item->user->username }}" class="uploadBy">Upload By : {{ $item->user->name }}</a>
+    
+                    <p>{{ $item->created_at->diffForHumans() }}</p>
+                </div>
+            </div>
+    
+            @endforeach
+        </div>
+    @endsection
+   ```
+
 ### Membuka setiap postingan yang sesuai isi nya
 
 Rangkuman alur pembuatan dan penanganan permintaan untuk menampilkan detail setiap galeri yang dipilih:
