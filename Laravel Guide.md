@@ -145,3 +145,25 @@ Dengan langkah-langkah ini, Anda akan memiliki halaman detail galeri yang berfun
    ```
    Pastikan menggunakan model Galeri:: dan dengan relasi apa saja yang sudah terhubung di model galeri, disini menggunakan kategoriGaleri dan user karena untuk menampilkan data nya butuh itu agar bisa diakses.
 
+   ### Menampilkan seluruh Kategori pada Galeri
+   1. Buat link yang akan di klik.
+      ```html
+       <div class="category"><a href="/kategoriGaleri">All Category</a></div>
+      ```
+   2. Tentukan URL nya di Route pada web.php dan jalur menggunakan Controller nya dengan function allKategori.
+      ```php
+      Route::get('/kategoriGaleri', [KategoriGaleriController::class, 'allKategori']);Route::get('/kategoriGaleri', [KategoriGaleriController::class, 'allKategori']);
+      ```
+   3. Masuk Ke KategoriGaleriController dan arahkan akan ditampilkan ke view mana, berikan title, dan ambil data dengan menggunakan model KategoriGaleri.
+      ```php
+      public function allKategori()
+    {
+        return view('kategoriGaleri',  [
+            'title' => 'Galeri',
+            'judulPage' => 'Kategori Galeri',
+            'kategoriGaleri' => KategoriGaleri::all()
+
+        ]);
+    }
+   ``` 
+
