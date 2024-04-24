@@ -145,6 +145,7 @@ Dengan langkah-langkah ini, Anda akan memiliki halaman detail galeri yang berfun
    ```
    Pastikan menggunakan model Galeri:: dan dengan relasi apa saja yang sudah terhubung di model galeri, disini menggunakan kategoriGaleri dan user karena untuk menampilkan data nya butuh itu agar bisa diakses.
 
+
 1. Parameter pada Fungsi Controller:
 ```php
 public function index2(User $uploaded)
