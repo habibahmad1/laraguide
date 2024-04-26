@@ -221,5 +221,43 @@ Di sini, Anda mengembalikan data ke view dengan menggunakan view() helper Larave
 
         ]);
         }
-       ``` 
+       ```
+
+### Membuat Fitur Search
+1. Buat sebuah search pada halaman yang akan dicari.
+   ```html
+   <div class="search">
+            <form action="/artikel">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Artikel ..." name="search">
+                    <button class="btn btn-primary" type="submit" >Search</button>
+                  </div>
+            </form>
+   </div>
+   ```
+2. Karena Form itu mengarah ke Artikel dan dengan name search pada input, kita cek dulu apakah ada isinya di ArtikelController
+   ```php
+   dd(request('search'));
+   ```
+3. Kalau ada kita query
+   ```php
+     public function index()
+    {
+        $artikel = Artikel::latest();
+
+        if (request('search')) {
+            $artikel->where('judul', 'like', '%' . request('search') . '%');
+        }
+
+
+        return view('artikel',  [
+            'title' => 'Artikel',
+            "article" => $artikel->get()
+        ]);
+    }
+   ```
+4. Jangan lupa tambahkan value, agar saat di seach masih ada teks di baris pencarian nya
+   ```php
+   value="{{ request('search') }}"
+   '''
 
