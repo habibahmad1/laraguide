@@ -259,3 +259,18 @@ Di sini, Anda mengembalikan data ke view dengan menggunakan view() helper Larave
    ```php
    "article" => Artikel::latest()->filtercoy()->get()
    ```
+
+   ### Membuat Fitur Paginate
+   1. Ganti get dengan Paginate dan jumlah artikel yg di inginkan
+      ```php
+      "article" => Artikel::latest()->filtercoy()->paginate(7)->withQueryString()
+      ```
+   2. Tambahkan sebuah function links untuk bisa ke page selanjutnya
+      ```php
+      {{ $article->links() }}
+      ```
+   3. Untuk Bootstrap bisa tambahkan kode dibawah ini ke folder App\Providers\AppServiceProvider
+      ```php
+      use Illuminate\Pagination\Paginator;
+      Paginator::useBootstrapFive();
+      ```
