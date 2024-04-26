@@ -239,35 +239,23 @@ Di sini, Anda mengembalikan data ke view dengan menggunakan view() helper Larave
    ```php
    dd(request('search'));
    ```
-3. Kalau ada kita query
+3. Kalau ada kita buat fungsi di Artikel Model, nama fungsi awal harus scope
    ```php
-     public function index()
+      public function scopeFiltercoy($query)
     {
-        $artikel = Artikel::latest();
-
+        dd(request('search'));
         if (request('search')) {
-            $artikel->where('judul', 'like', '%' . request('search') . '%');
+            return $query->where('judul', 'like', '%' . request('search') . '%')
+                ->orWhere('artikelPost', 'like', '%' . request('search') . '%');
         }
-
-
-        return view('artikel',  [
-            'title' => 'Artikel',
-            "article" => $artikel->get()
-        ]);
     }
    ```
 4. Jangan lupa tambahkan value, agar saat di serach masih ada teks di baris pencarian nya
    ```html
    value="{{ request('search') }}"
    '''
-5. Fitur pencarian diatas masih untuk judul saja, jika ingin dengan teks yang berada pada body post maka tambahkan ini pada controller nya.
+
+5. Jangan lupa tambahkan function yang sudah dibuat tadi pada Artikel Controller
    ```php
-    ->orWhere('artikelPost', 'like', '%' . request('search') . '%')
-
-   jadi seperti ini jika semua sudah ditambahkan.
-   if (request('search')) {
-            $artikel->where('judul', 'like', '%' . request('search') . '%')
-                ->orWhere('artikelPost', 'like', '%' . request('search') . '%');
-        }
+   "article" => Artikel::latest()->filtercoy()->get()
    ```
-
