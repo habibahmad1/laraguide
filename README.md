@@ -1,2 +1,2 @@
-# memo
-Catatan yang dibutuhkan suatu saat
+# Memo
+- Daftar Catatan yang dibutuhkan suatu saat
