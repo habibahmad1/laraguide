@@ -4,7 +4,7 @@ cara upload ke git
 3. git commit -m 'portofolio'
 4. git branch -M main (ini buat branch dengan nama main,step ini dilewat
    tidak apa apa tapi default branch master)
-5. git remote (urlnya)
+5. git remote (urlnya, contoh: git remote add origin https://github.com/habibahmad1/hororGame.git)
 6. git push -u origin main (main mengikuti nama branch kalau default master)
 
 cara update
