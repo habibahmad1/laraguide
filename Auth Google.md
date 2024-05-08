@@ -78,6 +78,11 @@ class GoogleLoginController extends Controller
 - jangan lupa tambahkan field baru dengan nama google_id
 6. Buat View:
 - Buat tampilan yang akan menampilkan tombol "Login with Google" dan mengarahkan pengguna ke proses login Google OAuth.
+- dibawah ini merupakan kode tampilan ketika login google di klik.
+  ```html
+    <div class="googleLogin"><a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Fgooglelogin&response_type=code&client_id=609385636534-lhdf545kp0eafo508hv1adgn2114k3rj.apps.googleusercontent.com&access_type=offline" class="text-decoration-none"><i class="fa-brands fa-google"></i> Login With Google</a>
+            </div>
+  ```
 7. Kelola Callback:
 - Setelah pengguna memberikan izin, tangani callback dari Google OAuth untuk mendapatkan informasi pengguna.
 - Simpan informasi pengguna ke dalam basis data jika diperlukan.
