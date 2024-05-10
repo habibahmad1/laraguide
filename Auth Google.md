@@ -21,6 +21,8 @@ use Illuminate\Http\Request;
 use Google\Client;
 use Google\Service\Oauth2;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class GoogleLoginController extends Controller
 {
@@ -50,7 +52,10 @@ class GoogleLoginController extends Controller
             $google_id = $user_info->id;
             $email = $user_info->email;
             $name = $user_info->name;
-            $username = $user_info->name;
+            $username = $user_info->name . '_' . substr(uniqid(), 0, 3);
+            // Setelah mendapatkan informasi pengguna dari Google
+            $profilePictureUrl = $user_info->picture;
+
 
             // Periksa apakah pengguna sudah ada di database berdasarkan email
             $existingUser = User::where('email', $email)->first();
@@ -63,16 +68,23 @@ class GoogleLoginController extends Controller
                 $newUser->email = $email;
                 $newUser->google_id = $google_id;
                 $newUser->save();
+                // Autentikasi pengguna baru
+                Auth::login($newUser);
+            } else {
+                // Autentikasi pengguna yang sudah ada
+                Auth::login($existingUser);
             }
 
-            return redirect('/');
+            // Redirect pengguna ke halaman yang sesuai
+            return redirect()->intended('/dashboard');
 
             // Sekarang Anda dapat melanjutkan dengan logika autentikasi atau tindakan lainnya
         } else {
-            // Jika ada kesalahan, tangani di sini
+            return back()->with('loginError', 'Login Failed!');
         }
     }
 }
+
 
 ```
 - jangan lupa tambahkan field baru dengan nama google_id
