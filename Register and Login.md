@@ -1,4 +1,5 @@
-# User Register Guide Laravel
+# User Register and Login Guide Laravel
+## Register User
 1. Buat Form untuk daftar user.
    ```html
      {{-- Form Daftar --}}
@@ -126,4 +127,75 @@
                   </div>
             @endif
       ```
+## Login User
+1. Buat Form Daftar pada html.
+   ```html
+   <form class="form-login" action="/login" method="POST">
+            @csrf
+            {{-- Alert Success Register --}}
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+            @endif
+
+            <center>
+                <h3>Masuk Ke Akun Anda</h3>
+            </center>
+            <div class="email">
+                <label for="email">Email <span class="pentingIcon">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Masukan Email" required autofocus class="@error('email') is-invalid @enderror" value="{{ old('email') }}">
+                @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="password">
+                <label for="password">Password <span class="pentingIcon">*</span></label>
+                <input type="password" id="password" name="password" placeholder="Masukan Password" required>
+                <span class="iconEye" style="cursor: pointer"><i class="fa-solid fa-eye-slash"></i></span>
+            </div>
+            <div class="cekBox">
+                <input type="checkbox"> Ingat Saya
+                <a href="" class="forgotPw">Lupa Password?</a>
+            </div>
+            <div class="loginButton">
+                <button type="submit">Login</button>
+            </div>
+            <div class="googleLogin"><a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Fgooglelogin&response_type=code&client_id=609385636534-lhdf545kp0eafo508hv1adgn2114k3rj.apps.googleusercontent.com&access_type=offline" class="text-decoration-none"><i class="fa-brands fa-google"></i> Login With Google</a>
+            </div>
+            <div class="daftarSlider">
+                <p>Klik Untuk Daftar Akun </p>
+                <div class="slider">
+                    <div class="bolaSlider"></div>
+                </div>
+            </div>
+        </form>
+   ```
+   - Atur action ke arah mana saat user tekan button login, dan buat method di form nya jadi POST.
+   - Atur @csrf untuk keamanan
+   - tambahkan pesan eror di email ketika ada salah di validasi.
+
+3. Buat Route nya di Web.php, jangan lupa pakai POST
+   ```php
+   // Route untuk Login Form
+   Route::post('/login', [LoginController::class, 'authenticate']);
+   ```
+4. Tambahkan validasi di function pada Controller Login yang sudah ditentukan yaitu, authenticate.
+   ```php
+   public function authenticate(Request $request)
+    {
+        $validasiData = $request->validate([
+            'email' => 'required|email:dns',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($validasiData)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
+        }
+    }
+   ```
       
