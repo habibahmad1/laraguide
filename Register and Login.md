@@ -140,6 +140,13 @@
                   </div>
             @endif
 
+            @if (session()->has('loginError'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ session('loginError') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+            @endif
+
             <center>
                 <h3>Masuk Ke Akun Anda</h3>
             </center>
@@ -196,6 +203,7 @@
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
+         return back()->with('loginError', 'Login Failed!');
     }
    ```
       
