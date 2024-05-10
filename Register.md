@@ -79,42 +79,43 @@
 - @CSRF untuk keamanan jalur di saat user klik daftar.
 - @error('name')is-invalid @enderror" menampilkan tanda merah eror, sesuaikan dengan nama name nya di input.
 - ```html
-  @error('password_confirmation')
-   <div class="invalid-feedback">
-   {{ $message }}
-   </div>
-  @enderror
+     @error('password_confirmation')
+      <div class="invalid-feedback">
+      {{ $message }}
+      </div>
+     @enderror
   ```
 - Kode diatas untuk menampilkan pesan error.
 2. Buat Route nya di web.php
   ```php
-  // Route untuk Daftar dengan Menggunakan Krontroller bukan Clousure
-  Route::post('/register', [RegisterController::class, 'store']);
+     // Route untuk Daftar dengan Menggunakan Krontroller bukan Clousure
+     Route::post('/register', [RegisterController::class, 'store']);
   ```
 3. Buat Controller nya untuk jalur route dan validasi form
    ```php
-   //Sesuaikan nama validasi nya dengan name pada input di form
-    public function store(Request $request)
-    {
-        $prosesValidasi = $request->validate([
-            'name' => 'required|max:255',
-            'username' => ['required', 'unique:users'],
-            'email' => 'required|email:dns|unique:users',
-            'noHp' => 'required|regex:/^[0-9]{10,}$/',
-            'password' => 'required|min:8',
-            'password_confirmation' => 'required|min:8|same:password',
-        ]);
-
-        User::create($prosesValidasi);
-
-        // $request = session();
-        // $request->flash('success', 'Registration successfull! Please login');
-
-        return redirect('/login')->with('success', 'Registration successfull! Please login');
-    }
+      //Sesuaikan nama validasi nya dengan name pada input di form
+       public function store(Request $request)
+       {
+           $prosesValidasi = $request->validate([
+               'name' => 'required|max:255',
+               'username' => ['required', 'unique:users'],
+               'email' => 'required|email:dns|unique:users',
+               'noHp' => 'required|regex:/^[0-9]{10,}$/',
+               'password' => 'required|min:8',
+               'password_confirmation' => 'required|min:8|same:password',
+           ]);
+   
+           User::create($prosesValidasi);
+   
+           // $request = session();
+           // $request->flash('success', 'Registration successfull! Please login');
+   
+           return redirect('/login')->with('success', 'Registration successfull! Please login');
+       }
    ```
    - with untuk menampilkan pesan setelah berhasil register
    - user create untuk langsung insert ke database, pastikan nama validasi sama dengan nama di field database
+   
    4. Tambah kan kode ini di bagian form Login untuk tampil pesan sukses register
       ```html
        {{-- Alert Success Register --}}
