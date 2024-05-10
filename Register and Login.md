@@ -192,6 +192,8 @@
    ```
 4. Tambahkan validasi di function pada Controller Login yang sudah ditentukan yaitu, authenticate.
    ```php
+   use Illuminate\Support\Facades\Auth;
+   
    public function authenticate(Request $request)
     {
         $validasiData = $request->validate([
@@ -206,4 +208,4 @@
          return back()->with('loginError', 'Login Failed!');
     }
    ```
-      
+   - jangan lupa tambahkan namespace Auth
