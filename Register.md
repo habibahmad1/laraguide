@@ -75,7 +75,7 @@
             </div>
         </form>
    ```
-- Beberapa penjelasan, oastikan register menggunakan method = "POST"
+- Beberapa penjelasan, pastikan register menggunakan method = "POST"
 - @CSRF untuk keamanan jalur di saat user klik daftar.
 - @error('name')is-invalid @enderror" menampilkan tanda merah eror, sesuaikan dengan nama name nya di input.
 - ```html
@@ -96,7 +96,7 @@
    //Sesuaikan nama validasi nya dengan name pada input di form
     public function store(Request $request)
     {
-        $request->validate([
+        $prosesValidasi = $request->validate([
             'name' => 'required|max:255',
             'username' => ['required', 'unique:users'],
             'email' => 'required|email:dns|unique:users',
@@ -105,6 +105,24 @@
             'password_confirmation' => 'required|min:8|same:password',
         ]);
 
-        dd("Berhasil");
+        User::create($prosesValidasi);
+
+        // $request = session();
+        // $request->flash('success', 'Registration successfull! Please login');
+
+        return redirect('/login')->with('success', 'Registration successfull! Please login');
     }
    ```
+   - with untuk menampilkan pesan setelah berhasil register
+   - user create untuk langsung insert ke database, pastikan nama validasi sama dengan nama di field database
+   4. Tambah kan kode ini di bagian form Login untuk tampil pesan sukses register
+      ```html
+       {{-- Alert Success Register --}}
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+            @endif
+      ```
+      
