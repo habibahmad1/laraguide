@@ -213,3 +213,97 @@
    ```
    - jangan lupa tambahkan namespace Auth.
    - menggunakan remember me
+
+## Fitur Middleware
+Memfilter jika user sudah login maka tidak bisa lihat halaman login.
+1. Tambahkan pada Route yang tidak ingin muncul ketika sudah login
+   ```php
+   // Route ke Login
+   Route::get('login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+
+   // Route untuk Dashboard
+   Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');;
+   ```
+   - Kode diatas hanya jika user belum login yang bisa mengaksesnya.
+   - Jika guest artinya hanya user yang belum login bisa akses, kalau auth yang sudah login yang boleh mengakses itu url.
+
+2. Ubah mau diarahkan kemana jika user masih tetap klik login misal sudah login
+   ```php
+   public const HOME = '/';
+   ```
+   - Ubah di App/Providers/RouteServiceProvider.php
+3. Atur Ketika sudah login Navbar tampilan login hilang dan diganti dengan logout
+   ```html
+   @auth
+          <center>
+            <!-- Example single danger button -->
+            <li class="nav-item dropdown loginAuth d-block">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hi, {{ auth()->user()->name }}
+              </a>
+              <ul class="dropdown-menu text-center">
+                <li><a class="dropdown-item" href="/dashboard"><i class="fa-solid fa-book"></i> My Dashboard</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+          </center>
+          @else
+            <li class="nav-item">
+              <a class="nav-link login {{ ($title === "Login") ? 'active' : '' }}" href="/login">Login</a>
+            </li>
+          @endauth
+   ```
+
+## Logout User
+1. Buat Route di web.php
+   ```php
+   // Route untuk Logout Form
+   Route::post('/logout', [LoginController::class, 'logout']);
+   ```
+   - masih menggunakan COntroller Login tapi dengan function logout
+2. Tampilan dibuat jika sudah login maka baru tampil logout
+   ```html
+   @auth
+          <center>
+            <!-- Example single danger button -->
+            <li class="nav-item dropdown loginAuth d-block">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hi, {{ auth()->user()->name }}
+              </a>
+              <ul class="dropdown-menu text-center">
+                <li><a class="dropdown-item" href="/dashboard"><i class="fa-solid fa-book"></i> My Dashboard</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+          </center>
+          @else
+            <li class="nav-item">
+              <a class="nav-link login {{ ($title === "Login") ? 'active' : '' }}" href="/login">Login</a>
+            </li>
+          @endauth
+   ```
+3. Buat function logout di LoginController
+   ```php
+       public function logout(Request $request)
+       {
+           Auth::logout();
+   
+           $request->session()->invalidate();
+   
+           $request->session()->regenerateToken();
+   
+           return redirect('/');
+       }
+   ```
