@@ -219,13 +219,14 @@ Memfilter jika user sudah login maka tidak bisa lihat halaman login.
 1. Tambahkan pada Route yang tidak ingin muncul ketika sudah login
    ```php
    // Route ke Login
-   Route::get('login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+   Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 
    // Route untuk Dashboard
    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');;
    ```
    - Kode diatas hanya jika user belum login yang bisa mengaksesnya.
    - Jika guest artinya hanya user yang belum login bisa akses, kalau auth yang sudah login yang boleh mengakses itu url.
+   - Jika user memaksa ketik manual dashboard maka akan di redirect kembali ke name('login') yang sudah kita buat pada route login
 
 2. Ubah mau diarahkan kemana jika user masih tetap klik login misal sudah login
    ```php
