@@ -113,10 +113,10 @@
            return redirect('/login')->with('success', 'Registration successfull! Please login');
        }
    ```
-   - with untuk menampilkan pesan setelah berhasil register
-   - user create untuk langsung insert ke database, pastikan nama validasi sama dengan nama di field database
+   - with untuk menampilkan pesan setelah berhasil register.
+   - user create untuk langsung insert ke database, pastikan nama validasi sama dengan nama di field database.
    
-   4. Tambah kan kode ini di bagian form Login untuk tampil pesan sukses register
+4. Tambah kan kode ini di bagian form Login untuk tampil pesan sukses register
       ```html
        {{-- Alert Success Register --}}
             @if (session()->has('success'))
