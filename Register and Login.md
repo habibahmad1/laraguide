@@ -165,7 +165,7 @@
                 <span class="iconEye" style="cursor: pointer"><i class="fa-solid fa-eye-slash"></i></span>
             </div>
             <div class="cekBox">
-                <input type="checkbox"> Ingat Saya
+                <input type="checkbox" name="remember"> Ingat Saya
                 <a href="" class="forgotPw">Lupa Password?</a>
             </div>
             <div class="loginButton">
@@ -201,11 +201,15 @@
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($validasiData)) {
+        $remember = $request->has('remember') ? true : false;
+
+        if (Auth::attempt($validasiData, $remember)) {
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
-         return back()->with('loginError', 'Login Failed!');
+
+        return back()->with('loginError', 'Login Failed!');
     }
    ```
-   - jangan lupa tambahkan namespace Auth
+   - jangan lupa tambahkan namespace Auth.
+   - menggunakan remember me
