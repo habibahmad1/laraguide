@@ -1,7 +1,7 @@
 # User Register Guide Laravel
 1. Buat Form untuk daftar user.
    ```html
-  {{-- Form Daftar --}}
+     {{-- Form Daftar --}}
         <div class="gambarKanan">
             <img src="./img/imgDaftar.jpg" alt="imgLogin">
         </div>
