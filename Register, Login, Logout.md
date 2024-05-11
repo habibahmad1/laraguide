@@ -193,6 +193,7 @@
 4. Tambahkan validasi di function pada Controller Login yang sudah ditentukan yaitu, authenticate.
    ```php
    use Illuminate\Support\Facades\Auth;
+   use App\Models\User;
    
    public function authenticate(Request $request)
     {
@@ -200,6 +201,15 @@
             'email' => 'required|email:dns',
             'password' => 'required'
         ]);
+
+      // Cari pengguna dengan email yang diberikan
+        $user = User::where('email', $validasiData['email'])->first();
+
+        // Periksa apakah pengguna tidak memiliki kata sandi di database
+        if ($user && empty($user->password)) {
+            // Jika pengguna tidak memiliki kata sandi, tampilkan pesan untuk login menggunakan Google
+            return back()->with('loginError', 'Please login using Google.');
+        }
 
         $remember = $request->has('remember') ? true : false;
 
@@ -213,6 +223,7 @@
    ```
    - jangan lupa tambahkan namespace Auth.
    - menggunakan remember me
+   - Di atas sudah termasuk jika user menggunakan login google , ketika dia maksa gunakan form login untuk masuk akan diberi eror.
 
 ## Fitur Middleware
 Memfilter jika user sudah login maka tidak bisa lihat halaman login.
