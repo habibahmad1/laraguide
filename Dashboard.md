@@ -263,7 +263,7 @@
 
 3. Untuk Halaman Dashboard agar tidak memiliki banyak route, maka untuk route nya khusus dimana menggunakan Resource ini bisa menangani semua method baik GET/POST.
    ```php
-    php artisan make:controller DashboardController --model=Photo --resource
+    php artisan make:controller DashboardController --model=Artikel --resource
    ```
    - Atau bisa gunakan dengan COmmand Palete, ctrl+Shift+P, Make:Controller->tulis nama nya->pilih yang Resource -> tulis nama model yang ingin terhubung.
    - itu untuk membuat Controller sekaligus mau terhubung dengan model apa yg ingin dilakukan CRUD.
