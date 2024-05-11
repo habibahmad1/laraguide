@@ -201,6 +201,7 @@
   - Template Sudah Termasuk Icon dari Font Awesome dan Icon Bootstrap
   - CDN CSS dan JS dari Bootstrap
   - Bila perlu dibuat partial agar lebih dinamis
+  - Bila pakai partials nisa dibagi menjadi 3 bagian. Main, Sidebar, Header.
   - Jangan lupa tambahnkan kode CSS dan JS sesuai lokasi di HTML
 
 2. Ini Kode CSS nya
