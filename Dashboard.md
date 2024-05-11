@@ -201,7 +201,7 @@
   - Template Sudah Termasuk Icon dari Font Awesome dan Icon Bootstrap
   - CDN CSS dan JS dari Bootstrap
   - Bila perlu dibuat partial agar lebih dinamis
-  - Bila pakai partials nisa dibagi menjadi 3 bagian. Main, Sidebar, Header.
+  - Bila pakai partials bisa dibagi menjadi 3 bagian. Main, Sidebar, Header.
   - Jangan lupa tambahnkan kode CSS dan JS sesuai lokasi di HTML
 
 2. Ini Kode CSS nya
@@ -260,3 +260,10 @@
           font-size: 20px;
       }
    ```
+
+3. Untuk Halaman Dashboard agar tidak memiliki banyak route, maka untuk route nya khusus dimana menggunakan Resource ini bisa menangani semua method baik GET/POST.
+   ```php
+    php artisan make:controller DashboardController --model=Photo --resource
+   ```
+   - Atau bisa gunakan dengan COmmand Palete, ctrl+Shift+P, Make:Controller->tulis nama nya->pilih yang Resource -> tulis nama model yang ingin terhubung.
+   - itu untuk membuat Controller sekaligus mau terhubung dengan model apa yg ingin dilakukan CRUD.
