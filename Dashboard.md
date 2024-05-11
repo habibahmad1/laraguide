@@ -266,3 +266,11 @@
    - Ketika buat aksi ada detail,edit, dan hapus.
    - misal detail, kita tidak perlu buat route lagi di web.php. Tapi langsung masukan saja pada function show di DashboardController yang dibuat dengan Resource tadi
    - Tapi tetap pada aksi detail/ yang lain nya dibuat link, misal: /dashboard/detail.
+
+6. Agar bisa diklig dengan mengambil slug perlu ditambahkan function di Model Artikel.
+   ```php
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+   ```
