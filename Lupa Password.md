@@ -91,3 +91,63 @@
    ```
 
 6. Buat View: Buat view untuk menampilkan formulir lupa password. Biasanya, view ini berisi formulir dengan satu input untuk alamat email.
+   - Form Lupa Password
+   ```html
+   <div class="container">
+        <h2>Forgot Password</h2>
+        @if (session('status'))
+            <div class="status-message">{{ session('status') }}</div>
+        @endif
+        @if ($errors->any())
+            <div class="error-message">
+                @foreach ($errors->all() as $error)
+                    {{ $error }}<br>
+                @endforeach
+            </div>
+        @endif
+        <form action="{{ route('password.email') }}" method="POST">
+            @csrf
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="submit">Send Password Reset Link</button>
+        </form>
+    </div>
+   ```
+
+   - Form Input Password Baru
+   ```html
+   <h2>Reset Password</h2>
+    @if ($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session('status'))
+        <div>{{ session('status') }}</div>
+    @endif
+
+    <form method="POST" action="{{ route('password.update') }}">
+        @csrf
+
+        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="email" value="{{ $email }}">
+
+        <div>
+            <label for="password">New Password:</label>
+            <input type="password" id="password" name="password" required autofocus>
+        </div>
+
+        <div>
+            <label for="password_confirmation">Confirm New Password:</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" required>
+        </div>
+
+        <div>
+            <button type="submit">Reset Password</button>
+        </div>
+    </form>
+   ```
