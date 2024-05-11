@@ -267,3 +267,8 @@
    ```
    - Atau bisa gunakan dengan COmmand Palete, ctrl+Shift+P, Make:Controller->tulis nama nya->pilih yang Resource -> tulis nama model yang ingin terhubung.
    - itu untuk membuat Controller sekaligus mau terhubung dengan model apa yg ingin dilakukan CRUD.
+
+4. Untuk Route pada Web.php nya seperti ini jadinya.
+   ```php
+    Route::resource('/dashboard/artikel', DashboardController::class)->middleware('auth');
+   ```
