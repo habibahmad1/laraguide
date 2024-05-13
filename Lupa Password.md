@@ -181,3 +181,9 @@
             </div>
         </form>
    ```
+
+7. Jangan lupa ubah lokasi css dan js nya agar terdeteksi di halaman ubah passsword dengan path yang relative di main pada partials nya.
+   ```html
+   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+   <script src="{{ asset('js/script.js') }}"></script>
+   ``` 
