@@ -57,7 +57,11 @@
       
           public function showResetForm(Request $request, $token)
           {
-              return view('login.changepw', ['token' => $token, 'email' => $request->email]);
+              return view('login.changepw', [
+                  'token' => $token,
+                  'email' => $request->email,
+                  'title' => 'Login'
+              ]);
           }
       
           public function resetPassword(Request $request)
@@ -95,14 +99,14 @@
 4. Pastikan Anda telah membuat view auth.forgot-password.blade.php untuk menampilkan formulir lupa password.
 5. Konfigurasi Email: Pastikan Anda telah mengatur pengaturan email di file .env, seperti yang dijelaskan sebelumnya.
    ```php
-    MAIL_MAILER=smtp
-    MAIL_HOST=smtp.gmail.com
-    MAIL_PORT=587
-    MAIL_USERNAME=your_email@gmail.com
-    MAIL_PASSWORD=your_gmail_password
-    MAIL_ENCRYPTION=tls
-    MAIL_FROM_ADDRESS=your_email@gmail.com
-    MAIL_FROM_NAME="${APP_NAME}"
+   MAIL_MAILER=smtp
+   MAIL_HOST=smtp.gmail.com
+   MAIL_PORT=465
+   MAIL_USERNAME=habibahmad4580@gmail.com
+   MAIL_PASSWORD=diambil dari buat pw di akun google nya
+   MAIL_ENCRYPTION=ssl
+   MAIL_FROM_ADDRESS="habibahmad4580@gmail.com"
+   MAIL_FROM_NAME="Reset Password"
    ```
 
 6. Buat View: Buat view untuk menampilkan formulir lupa password. Biasanya, view ini berisi formulir dengan satu input untuk alamat email.
