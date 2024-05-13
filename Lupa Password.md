@@ -32,7 +32,6 @@
       use Illuminate\Http\Request;
       use Illuminate\Support\Facades\Password;
       use Illuminate\Support\Facades\Hash;
-      use Illuminate\Support\Str;
       use App\Models\User;
       
       class ForgotPasswordController extends Controller
@@ -44,7 +43,16 @@
       
           public function sendResetLinkEmail(Request $request)
           {
-              $request->validate(['email' => 'required|email']);
+              $validasiData = $request->validate(['email' => 'required|email']);
+
+              // Cari pengguna dengan email yang diberikan
+              $user = User::where('email', $validasiData['email'])->first();
+      
+              // Periksa apakah pengguna tidak memiliki kata sandi di database
+              if ($user && empty($user->password)) {
+                  // Jika pengguna tidak memiliki kata sandi, tampilkan pesan untuk login menggunakan Google
+                  return back()->with('loginError', 'Please login using Google.');
+              }
       
               $status = Password::sendResetLink(
                   $request->only('email')
