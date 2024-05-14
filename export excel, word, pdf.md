@@ -50,7 +50,9 @@ Contoh:
 # Export to PDF
 2. Untuk membuat file PDF, saya menggunakan library jsPDF yang juga dapat diakses melalui CDN:
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+ {{-- PDF --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 ```
 Contoh: 
 ```html
@@ -58,6 +60,7 @@ Contoh:
 <html>
 <head>
   <title>Export to PDF</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
@@ -80,10 +83,15 @@ Contoh:
   </table>
   <button onclick="exportToPDF()">Export to PDF</button>
   <script>
+    window.jsPDF = window.jspdf.jsPDF;
     function exportToPDF() {
-      const doc = new jsPDF();
-      doc.autoTable({ html: '#myTable' });
-      doc.save('table.pdf');
+      const content = document.getElementById('myTable');
+      html2canvas(content).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'PNG', 0, 0);
+        pdf.save('table.pdf');
+      });
     }
   </script>
 </body>
