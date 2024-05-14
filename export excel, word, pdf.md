@@ -50,7 +50,6 @@ Contoh:
 # Export to PDF
 2. Untuk membuat file PDF, saya menggunakan library jsPDF yang juga dapat diakses melalui CDN:
 ```html
- {{-- PDF --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 ```
@@ -102,7 +101,9 @@ Contoh:
 # Export to Word
 3. Dan untuk membuat file Word, saya menggunakan library html-docx-js yang juga dapat diakses melalui CDN:
 ```html
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html-docx-js/0.2.2/html-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-docx-js/0.2.2/html-docx.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html-docx-js/dist/html-docx.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 ```
 Contoh:
 ```html
