@@ -30,3 +30,39 @@
         }
     }
    ```
+4. Tambahkan pada bagian bawah html,
+   ```html
+      <script>
+       const judul = document.querySelector('#judul');
+       const slug = document.querySelector('#slug');
+   
+       judul.addEventListener("change", function (){
+           fetch('/dashboard/artikel/cekSlug?judul=' + judul.value)
+           .then(response => response.json())
+           .then(data => slug.value = data.slug)
+       });
+      </script>
+   ```
+
+5. Buat method baru di controller dashboard
+   ```php
+      public function cekSlug(Request $request)
+       {
+           $slug = SlugService::createSlug(Artikel::class, 'slug', $request->judul);
+           return response()->json(['slug' => $slug]);
+       }
+   ```
+6. Jangan lupa buat Route nya letakan sebelum route dashboard:resource.
+   ```php
+      // Route untuk slug
+      Route::get('/dashboard/artikel/cekSlug', [DashboardPostController::class, 'cekSlug']);
+   ```
+
+# Cara Mudah AUTO SLUG
+   ```html
+      Untuk input title :
+      <input type="text" name="title" onkeyup="document.getElementById('autoslug').value = this.value.replace(/\s+/g, '-').toLowerCase()">
+      
+      Untuk input slug :
+      <input type="text" name="slug" id="autoslug" readonly>
+   ```
