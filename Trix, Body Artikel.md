@@ -16,7 +16,7 @@
   ```
 
 3. Jika ingin tidak bisa menambahkan file pada bodypost setting pada Trix nya, tambahkan CSS .
-    ```html
+  ```html
       <style>
         trix-toolbar [data-trix-button-group="file-tools"]{
           display: none;
