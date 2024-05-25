@@ -274,3 +274,13 @@ Di sini, Anda mengembalikan data ke view dengan menggunakan view() helper Larave
       use Illuminate\Pagination\Paginator;
       Paginator::useBootstrapFive();
       ```
+   4. Isi Dari function harus pakai scope.
+      ```php
+      public function scopeFiltercoy($query)
+        {
+            if (request('search')) {
+                return $query->where('judul', 'like', '%' . request('search') . '%')
+                    ->orWhere('artikelPost', 'like', '%' . request('search') . '%');
+            }
+        }
+      ```
