@@ -266,3 +266,130 @@
    ```php
       use Illuminate\Support\Facades\Storage;
    ```
+
+## Update/Edit Feature
+1. Tambahkan kode ini pada edit untuk tampilan form ketika setiap galeri di klik edit.
+   ```php
+     public function edit(Galeri $galeri)
+       {
+           return view('dashboard.galeri.edit', [
+               'galeri' => $galeri,
+               'data' => KategoriGaleri::all()
+           ]);
+       }
+   ```
+2. Buat View Form untuk Editnya.
+   ```html
+      @extends('dashboard.layouts.main')
+      @section('content')
+      
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Edit Galeri</h1>
+      </div>
+      
+      <div class="col-lg-7">
+          <form action="/dashboard/galeri/{{ $galeri->id }}" method="POST" enctype="multipart/form-data">
+            @method('put')
+              @csrf
+              <div class="mb-3">
+                <label for="judul" class="form-label">Judul Galeri</label>
+                <input type="text" class="form-control @error('judul')
+                  is-invalid
+                @enderror" id="judul" name="judul" required autofocus value="{{ old('judul', $galeri->judul) }}">
+                @error('judul')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <label for="kategoriGaleri_id" class="form-label">Kategori Galeri</label>
+                <select class="form-select" name="kategoriGaleri_id">
+                  @foreach ($data as $item)
+                  <option value="{{ $item->id }}" {{ old('kategoriGaleri_id', $galeri->kategoriGaleri_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                  @endforeach
+                </select>
+              </div>
+      
+              <div class="mb-3">
+                <label for="img" class="form-label">GambarGaleri</label>
+                @if ($galeri->img)
+                  <img src="{{ asset('storage/'.$galeri->img) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                  @else
+                  <img class="img-preview img-fluid mb-3 col-sm-5">
+                @endif
+                <input class="form-control @error('img')
+                is-invalid
+              @enderror" type="file" id="img" name="img" onchange="previewImage()">
+              @error('img')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+      
+              <button type="submit" class="btn btn-primary mb-5">Edit Galeri</button>
+          </form>
+      </div>
+      
+      
+      <script>
+      
+          function previewImage(){
+            const image = document.querySelector('#img');
+            const imagePreview = document.querySelector('.img-preview');
+            
+            imagePreview.style.display ="block";
+      
+            const ofReader = new FileReader();
+      
+            ofReader.readAsDataURL(image.files[0]);
+      
+            ofReader.onload = function (ofRevent){
+              imagePreview.src = ofRevent.target.result;
+            }
+      
+          }
+      </script>
+      @endsection
+   ```
+3. Pada Controller function update untuk logika insert dan update gambar ke Databasenya.
+   ```php
+      public function update(Request $request, Galeri $galeri)
+       {
+           $rules = [
+               'judul' => 'required|max:255',
+               'kategoriGaleri_id' => 'required',
+               'img' => 'image|file|max:2048',
+           ];
+   
+           $validasiData = $request->validate($rules);
+   
+           // Cek jika ada file gambar baru
+           if ($request->file('img')) {
+               // Hapus gambar lama jika ada
+               if ($galeri->img) {
+                   Storage::delete($galeri->img);
+               }
+               // Simpan gambar baru dan masukkan ke validasi data
+               $validasiData['img'] = $request->file('img')->store('galeri-img');
+           }
+   
+           // Tambahkan user_id dan excerpt ke validasi data
+           $validasiData['user_id'] = auth()->user()->id;
+   
+           // Update artikel dengan data yang telah divalidasi
+           $galeri->update($validasiData);
+   
+           return redirect('/dashboard/galeri')->with('success', 'Berhasil Edit Galeri');
+       }
+   ```
+4. Jangan lupa untuk tampilkan jika ada gambarnya jika tidak ada gunakan gambar dari Api Unsplash.
+   ```html
+      @if ($item->img)      
+           <img src="{{ asset('storage/' . $item->img) }}"  alt="imgPost" class="img-fluid">
+      @else
+
+           <img src="https://source.unsplash.com/500x400?{{ ($item->kategoriGaleri->nama == 'Kegiatan') ? 'Wallpaper' : $item->kategoriGaleri->nama }}" alt="" class="img-fluid">
+      @endif
+   ```
