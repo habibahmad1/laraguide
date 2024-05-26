@@ -95,47 +95,23 @@
                   </div>
                 @enderror
               </div>
-              <div class="mb-3">
-                <label for="slug" class="form-label">Slug</label>
-                <input type="text" class="form-control @error('slug')
-                is-invalid
-              @enderror" id="slug" name="slug" readonly value="{{ old('slug') }}">
-              @error('slug')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
-              </div>
       
               <div class="mb-3">
-                <label for="category_id" class="form-label">Kategori Artikel</label>
-                <select class="form-select" name="category_id">
+                <label for="kategoriGaleri_id" class="form-label">Kategori Artikel</label>
+                <select class="form-select" name="kategoriGaleri_id">
                   @foreach ($data as $item)
-                  <option value="{{ $item->id }}" {{ old('category_id') == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                  <option value="{{ $item->id }}" {{ old('kategoriGaleri_id') == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
                   @endforeach
                 </select>
               </div>
       
               <div class="mb-3">
-                <label for="image" class="form-label">Gambar Galeri</label>
+                <label for="img" class="form-label">Gambar Galeri</label>
                 <img class="img-preview img-fluid mb-3 col-sm-5">
-                <input class="form-control @error('image')
+                <input class="form-control @error('img')
                 is-invalid
-              @enderror" type="file" id="image" name="image" onchange="previewImage()">
-              @error('image')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
-              </div>
-
-               <div class="mb-3">
-                  <label for="artikelPost" class="form-label">Isi Artikel</label>
-                  <input id="artikelPost" type="hidden" name="artikelPost" value="{{ old('artikelPost') }}">
-                  <trix-editor input="artikelPost" class="@error('artikelPost')
-                  is-invalid
-                @enderror"></trix-editor>
-                @error('artikelPost')
+              @enderror" type="file" id="img" name="img" onchange="previewImage()">
+              @error('img')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
@@ -162,7 +138,7 @@
           })
       
           function previewImage(){
-            const image = document.querySelector('#image');
+            const image = document.querySelector('#img');
             const imagePreview = document.querySelector('.img-preview');
             
             imagePreview.style.display ="block";
@@ -181,8 +157,40 @@
    ```
 3. Banyak fitur di view tersebut, untuk slug bisa baca Slug pada artikel lain disini.
 4. PreviewImage menggunakan Javascript dan fitur Trix untuk kolom isi Artikel/Deskripsi yang bisa baca pada artikel lain disini.
-5. kemudian untuk menyimpannya ketika klik button Buat Galeri maka akan menuju form pada url yang akan dikirim ke controller Store untuk lakukan Validasi agar bisa di Insert ke Database.
+5. Pastikan nama NAME nya sesuai dengan nama di Database agar bisa langsung masuk ke database.
+6. kemudian untuk menyimpannya ketika klik button Buat Galeri maka akan menuju form pada url yang akan dikirim ke controller Store untuk lakukan Validasi agar bisa di Insert ke Database.
 
 ## Insert Feature
-
+1. Tulis di controller Store yang sudah disediakan untuk insert ke Database, jadi tidak perlu buat Route lagi.
+2. Tulis ini dulu di Git Bash/CMD agar folder Storage bisa diakses di public, dengan Symlink .
+   ```php
+      php artisan storage:link
+   ```
+   ```php
+      public function store(Request $request)
+       {
+           $validasiData = $request->validate([
+               'judul' => 'required|max:255',
+               'img' => 'image|file|max:2048',
+               'kategoriGaleri_id' => 'required',
+   
+           ]);
+   
+           if ($request->file('img')) {
+               $validasiData['img'] = $request->file('img')->store('galeri-img');
+           }
+           $validasiData['user_id'] = auth()->user()->id;
+   
+           Galeri::create($validasiData);
+   
+           return redirect('/dashboard/galeri')->with('success', 'Berhasil Menambahkan Galeri');
+       }
+    ```
+   3. Pastikan nama di $validasiData sesuai dengan nama Name di view nya dan Database.
+   4. Pada kode ini akan membuat folder baru yang sebelumnya sudah kita buat Symlink.
+      ```php
+      if ($request->file('img')) {
+               $validasiData['img'] = $request->file('img')->store('galeri-img');
+           }
+      ```
    
