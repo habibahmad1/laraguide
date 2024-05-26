@@ -251,13 +251,16 @@
 ## Delete Feature
 1. Tambahkan kode ini di delete function yang sudah disediakan, ini juga menghapus gambar yang diupload user agar tidak penuh.
    ```php
-         Galeri::destroy($galeri->id);
-
-        if ($galeri->img) {
-            Storage::delete($galeri->img);
-        }
-
-        return redirect('/dashboard/galeri')->with('success', 'Galeri Berhasil di Hapus');
+            public function destroy(Galeri $galeri)
+       {
+           Galeri::destroy($galeri->id);
+   
+           if ($galeri->img) {
+               Storage::delete($galeri->img);
+           }
+   
+           return redirect('/dashboard/galeri')->with('success', 'Galeri Berhasil di Hapus');
+       }
    ```
 2. Jangan Lupa tambahkan Namespace ini.
    ```php
