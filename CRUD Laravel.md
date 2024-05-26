@@ -39,9 +39,9 @@
                 <td>{{ $galeri->judul }}</td>
                 <td>{{ $galeri->kategoriGaleri->nama }}</td>
                 <td>
-                  <a href="/dashboard/galeri/{{ $galeri->slug }}" class="badge bg-info"><i class="fa-solid fa-eye text-white"></i></a>
-                  <a href="/dashboard/galeri/{{ $galeri->slug }}/edit" class="badge bg-success"><i class="fa-solid fa-pencil"></i></a>
-                  <form action="/dashboard/galeri/{{ $galeri->slug }}" method="POST" class="d-inline">
+                  <a href="/dashboard/galeri/{{ $galeri->id }}" class="badge bg-info"><i class="fa-solid fa-eye text-white"></i></a>
+                  <a href="/dashboard/galeri/{{ $galeri->id }}/edit" class="badge bg-success"><i class="fa-solid fa-pencil"></i></a>
+                  <form action="/dashboard/galeri/{{ $galeri->id }}" method="POST" class="d-inline">
                     @method('delete')
                     @csrf
                     <button class="badge bg-danger border-0" onclick="return confirm('Yakin Mau Hapus?')"><i class="fa-solid fa-trash-can"></i></button>
