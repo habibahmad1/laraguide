@@ -183,6 +183,6 @@
 4. PreviewImage menggunakan Javascript dan fitur Trix untuk kolom isi Artikel/Deskripsi yang bisa baca pada artikel lain disini.
 5. kemudian untuk menyimpannya ketika klik button Buat Galeri maka akan menuju form pada url yang akan dikirim ke controller Store untuk lakukan Validasi agar bisa di Insert ke Database.
 
-# Insert Feature
+## Insert Feature
 
    
