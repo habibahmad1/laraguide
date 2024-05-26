@@ -186,11 +186,11 @@
            return redirect('/dashboard/galeri')->with('success', 'Berhasil Menambahkan Galeri');
        }
     ```
-   3. Pastikan nama di $validasiData sesuai dengan nama Name di view nya dan Database.
-   4. Pada kode ini akan membuat folder baru yang sebelumnya sudah kita buat Symlink.
-      ```php
+3. Pastikan nama di $validasiData sesuai dengan nama Name di view nya dan Database.
+4. Pada kode ini akan membuat folder baru yang sebelumnya sudah kita buat Symlink.
+   ```php
       if ($request->file('img')) {
-               $validasiData['img'] = $request->file('img')->store('galeri-img');
-           }
-      ```
+          $validasiData['img'] = $request->file('img')->store('galeri-img');
+       }
+   ```
    
