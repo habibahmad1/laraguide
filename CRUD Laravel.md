@@ -194,7 +194,7 @@
        }
    ```
 
-# Read Setiap Galeri yang dibuat
+## Read Setiap Galeri yang dibuat
 1. Tidak usah buat Route masih gunakan yang disediakan karena pakai Resource, Tambahkan pada function Show.
    ```php
       public function show(Galeri $galeri)
