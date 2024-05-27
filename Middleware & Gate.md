@@ -16,6 +16,8 @@
    ```php
      'role' => \App\Http\Middleware\isAdmin::class
    ```
+
+## Gate
 6. Lalu untuk buat Gate buat menghilangkan menu jika user bukan Admin pada folder Providers/AppServiceProvider.php.
    ```php
      Gate::define('admin-superadmin', function ($user) {
@@ -52,7 +54,7 @@
         @endcan
    ```
 8. Penggunaan pada Route di web.php
-   ```php
+    ```php
      // Route Buat Galeri
     Route::resource('/dashboard/galeri', GaleriPostController::class)->middleware(['auth', 'member', 'role:Admin,Super Admin']);
-  ```
+   ```
