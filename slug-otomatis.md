@@ -66,3 +66,23 @@
       Untuk input slug :
       <input type="text" name="slug" id="autoslug" readonly>
    ```
+
+# Cara Simpel
+1. Tambahkan Kode JS ini pada html dan judul ganti dengan element yang ingin diambil.
+   ```html
+      <script>
+        function generateSlug() {
+            let judul = document.getElementById('judul').value;
+            let slug = judul.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            document.getElementById('slug').value = slug;
+        }
+    </script>
+   ```
+2. Ini Inputnya.
+   ```html
+      <label for="judul" class="form-label">Masukan Judul</label>
+      <input type="text" class="form-control" name="judul" id="judul" onkeyup="generateSlug()">
+   
+      <label for="slug" class="form-label">Masukan slug</label>
+      <input type="text" class="form-control" name="slug" id="slug" >
+   ```
