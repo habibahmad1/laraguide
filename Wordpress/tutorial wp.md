@@ -1,4 +1,4 @@
-#Tutorial Build Web dengan Wordpress.
+# Tutorial Build Web dengan Wordpress.
 1. Harus memiliki Domain & Hosting terlebih dahulu.
 2. Masuk ke CPanel nya.
 3. Install Wordpress pada CPanel.
