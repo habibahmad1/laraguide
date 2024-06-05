@@ -11,3 +11,4 @@
 10. lalu setting general lengkapi nama web, deskipsi web, pilih zona utc+7
 11. dan lalu pilih appreance dan klik customize dan edit header dengan template blocksy
 12. Jangan lupa atur homepage jika halaman yang sudah dibuat dengan elementor sebagai halaman homepage, ke setting reading lalu pilih static lalu pada homepage pilih halaman yang sudah di edit.
+13. Atur juga Navbar untuk tampilan Mobile, pada Appreance, Customize, dan pilih header, dan header mobile di container.
