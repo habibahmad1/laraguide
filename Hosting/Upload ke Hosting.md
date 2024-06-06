@@ -55,4 +55,17 @@
 18. Selesai.
 
 # Jika Upload Image tidak muncul
-1. 
+1. Buat Symlink dengan cara tulis ini di web.php
+   ```php
+      Route::get('/test', function(){
+      $target = storage_path('app/public');
+      $link = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+      symlink($target, $link);
+      });
+   ```
+2. Lalu kunjungi route itu, yourdomain.com/test
+3. Jangan lupa untuk atur .env
+   ```php
+      FILESYSTEM_DISK=public
+   ```
+4. Selesai
