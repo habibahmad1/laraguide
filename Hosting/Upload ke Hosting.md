@@ -68,4 +68,5 @@
    ```php
       FILESYSTEM_DISK=public
    ```
-4. Selesai
+4. Jangan lupa berika izin ceklis pada folder app/public di storage.
+5. Selesai
