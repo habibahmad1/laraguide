@@ -35,9 +35,9 @@
 16. Edit file .env yang pada folder root laravel di hosting.
     ```php
       APP_NAME=Blogger
-      APP_ENV=local
+      APP_ENV=production
       APP_KEY=base64:Ctrfbkw0ihJ+zu2aDDb/yhxI+hrYPTPWpcNDoGA8LTY=
-      APP_DEBUG=true
+      APP_DEBUG=false
       APP_URL=http://habibahmad.my.id
       
       LOG_CHANNEL=stack
@@ -52,7 +52,8 @@
       DB_PASSWORD=contoh
     ```
 17. Sesuaikan nama nya.
-18. Selesai.
+18. app_env ganti ke production dan app_debug ganti ke false.
+19. Selesai.
 
 # Jika Upload Image tidak muncul
 1. Buat Symlink dengan cara tulis ini di web.php
