@@ -69,5 +69,5 @@
    ```php
       FILESYSTEM_DISK=public
    ```
-4. Jangan lupa berika izin ceklis pada folder app/public di storage.
+4. Jangan lupa berika izin ceklis pada folder public_html di storage 755.
 5. Selesai
