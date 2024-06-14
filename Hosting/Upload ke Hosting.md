@@ -32,7 +32,8 @@
 13. Import file database ke mysql_database di hosting.
 14. Pilih new database dan buat nama dan password.
 15. Setelah itu buat user dan password, itu yang akan digunakan konek di .env
-16. Edit file .env yang pada folder root laravel di hosting.
+16. Jangan lupa atur privilage user agar bisa dipakai user nya.
+17. Edit file .env yang pada folder root laravel di hosting.
     ```php
       APP_NAME=Blogger
       APP_ENV=production
@@ -51,9 +52,9 @@
       DB_USERNAME=gghaxkaj_blogger
       DB_PASSWORD=contoh
     ```
-17. Sesuaikan nama nya.
-18. app_env ganti ke production dan app_debug ganti ke false.
-19. Selesai.
+18. Sesuaikan nama nya.
+19. app_env ganti ke production dan app_debug ganti ke false.
+20. Selesai.
 
 # Jika Upload Image tidak muncul
 1. Buat Symlink dengan cara tulis ini di web.php
