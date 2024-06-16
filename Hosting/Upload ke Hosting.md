@@ -49,7 +49,7 @@
       DB_HOST=127.0.0.1
       DB_PORT=3306
       DB_DATABASE=gghaxkaj_blogger
-      DB_USERNAME=gghaxkaj_blogger
+      DB_USERNAME=gghaxkaj_habib
       DB_PASSWORD=contoh
     ```
 18. Sesuaikan nama nya.
