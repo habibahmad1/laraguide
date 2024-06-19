@@ -105,16 +105,74 @@
    ```
 3. Untuk Delete.
    ```html
-   <form action="{{ route('contact.destroy', $item->id) }}" method="POST">
-   @method('delete')
-   @csrf
-   <button type="submit" onclick="return confirm('delete?')">Delete</button>
-   </form>
+         <form action="{{ route('contact.destroy', $item->id) }}" method="POST">
+         @method('delete')
+         @csrf
+         <button type="submit" onclick="return confirm('delete?')">Delete</button>
+         </form>
+         ```
+      4. Untuk update
+         ```html
+         {{ route('contact.update', $contact->id) }}
+         ```
+      5. Kode diatas menggunakan route untuk url dan data dari mana yang ingin di lihat/edit/update dengan menambahkan berdasarkan apa.  Misal di Route nya berdasarkan nama maka $item->name.
+      6. Jika berdasarkan {contact} maka itu berdasarkan id secara default jadi $item->id.
+      7. Contoh View Form Edit ,
+         ```html
+         @extends('partials.main')
+      @section('content')
+      <div class="contact" id="contact">
+      <h1 class="titleIntro">Edit Contact</h1>
+      
+          @if (session('success'))
+              <div>{{ session('success') }}</div>
+          @endif
+      
+          <form action="{{ route('contact.update', $contact->id) }}" method="POST">
+              @csrf
+              @method('PUT')
+              <div class="fullname">
+                  <label for="name">Name:</label>
+                  <input type="text" id="name" name="name" value="{{ old('name', $contact->name) }}">
+                  @error('name')
+                      <div>{{ $message }}</div>
+                  @enderror
+              </div>
+      
+              <div class="email">
+                  <label for="email">Email:</label>
+                  <input type="text" id="email" name="email" value="{{ old('email', $contact->email) }}">
+                  @error('email')
+                      <div>{{ $message }}</div>
+                  @enderror
+              </div>
+      
+              <div class="message">
+                  <label for="message">Message:</label>
+                  <textarea id="message" name="message">{{ old('message', $contact->message) }}</textarea>
+                  @error('message')
+                      <div>{{ $message }}</div>
+                  @enderror
+              </div>
+      
+              <button type="submit">Update</button>
+          </form>
+      </div>
+      @endsection
    ```
-4. Untuk update
-   ```html
-   {{ route('contact.update', $contact->id) }}
+
+# Message Success & Error
+
+1. Untuk menampilkan pesan Sukses saat mengedit data.
+   ```php
+      @if (session('success'))
+              <div>{{ session('success') }}</div>
+      @endif
    ```
-5. Kode diatas menggunakan route untuk url dan data dari mana yang ingin di lihat/edit/update dengan menambahkan berdasarkan apa.  Misal di Route nya berdasarkan nama maka $item->name.
-6. Jika berdasarkan {contact} maka itu berdasarkan id secara default jadi $item->id.
+2. Untuk menampilkan Eror dari validasi form edit.
+   ```php
+      @error('message')
+         <div>{{ $message }}</div>
+      @enderror
+   ```
     
