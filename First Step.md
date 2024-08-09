@@ -26,3 +26,8 @@ php artisan migrate:rollback
 ```blade
 php artisan migrate:fresh
 ```
+
+8. Membuat file dengan sistem partial yang akan dipecah ada bagian Main,Navbar,Footer.
+9. Buat folder partial di dalam folder view dan buat file nya dengan nama: main.blade.php , navbar.blade.php , footer.blade.php .
+10. Ubah Route agar menuju halaman main/Home, pada folder Route > Web.php.
+
