@@ -40,3 +40,21 @@ php artisan make:model NamaModel
 php artisan serve
 ```
 
+13. Setelah itu buat sebuah folder pada views dengan nama partials, didalam buat lagi file dengan nama main.blade.php, navbar.blade.php, footer.blade.php.
+14. Agar lebih mudah buat dahulu semuanya di main.blade.php lalu nanti tinggal di cut untuk bagian Navbar dan Footer nya.
+15. Jangan lupa tambahkan @include("partials/navbar.blade.php") dan @include("partials/footer.blade.php") pada bagian yang telah di cut.
+16. Dan untuk main nya setelah @include("partials/navbar.blade.php") bawah nya buat untuk tempat content artikel untuk tiap page agar dinamis dengan cara.
+```html
+<div class="container-main">
+        @yield('myContent')
+</div>
+```
+
+17. Sekaang sudah siap tinggal buat file baru untuk tiap page yang akan dibuat dan ditambahkan pada awal agar bisa pakai navbar dan footer dari main.
+```html
+@extends("partials.main")
+@section("myContent")
+   <!--Content Anda -->
+@endsection
+```
+
