@@ -58,3 +58,13 @@ php artisan serve
 @endsection
 ```
 
+18. Setelah buat page jangan lupa buat juga route nya pada web.php.
+```php
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('best', function () {
+    return view('best');
+});
+```
