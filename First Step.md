@@ -68,3 +68,10 @@ Route::get('best', function () {
     return view('best');
 });
 ```
+
+19. Jika ingin buat tabel didatabase buat dulu modelnya sekaligus tabel, misal tabel artikel buat dulu model nya beserta migration nya.
+```php
+php artisan make:model artikel -m
+```
+
+20. Buka file migration nya dan edit sesuaikan isi tabelnya ingin bagaimana.
