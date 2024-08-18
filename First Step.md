@@ -75,3 +75,4 @@ php artisan make:model artikel -m
 ```
 
 20. Buka file migration nya dan edit sesuaikan isi tabelnya ingin bagaimana.
+21. Setelah itu buat CRUD bisa lanjut ke readme CRUD yang sudah ditulis.
