@@ -11,8 +11,9 @@ laravel new example-app
 ```
 
 3. Jalankan Xampp, lalu buka VSCode dan buka project folder yang telah dibuat.
-4. Setting file .env dan ubah menggunakan mysql untuk database dan untuk nama database juga masukan.
-5. Setelah itu jalankan migrasi untuk bisa menggunakan table dengan cara.
+4. Pada Xampp perlu dijalankan apache dan mysql.
+5. Setting file .env dan ubah menggunakan mysql untuk database dan untuk nama database juga masukan.
+6. Setelah itu jalankan migrasi untuk bisa menggunakan table dengan cara.
 ```blade
 php artisan migrate
 ```
